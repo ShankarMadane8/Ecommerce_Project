@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Shofify</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+	<link rel="stylesheet" th:href="@{/CSS/main.css}">
+	<style>
+	 .circle-link {
+            display: inline-block;
+            width: 40px; /* Adjust the size of the circle */
+            height: 40px; /* Adjust the size of the circle */
+            border-radius: 50%; /* Make it a circle */
+            background-color: hotpink; /* Circle background color */
+            text-align: center;
+            line-height: 40px; /* Center the text vertically */
+            text-decoration: none; /* Remove underline from the link */
+            color: white; /* Text color */
+            font-size: 16px; /* Adjust the font size */
+        }
+    </style>
+	</style>
+</head>
+
+<body> 
+
+	<nav class="navbar navbar-expand-lg" id="navbar">
+		
+		<div class="container-fluid">
+		
+		
+			<a class="navbar-brand" href="\home" id="logo">
+        		<span id="span1">E</span>lectronic<span>Shop</span>
+        </a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fa fa-bars" aria-hidden="true"></i> </span>
+      </button>		
+			
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="navbar.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Product</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Category
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:rgb(100, 21, 173) ; ">
+              <li><a th:each="lookup: ${lookups}"  th:if="${lookup.type=='category'}" class="dropdown-item br" th:href="'/home?cid='+ ${lookup.id}">
+				
+					<p   th:text="${lookup.value}"> </p>
+				</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="itemform" th:if="${user != null and user.userType == 'ADMIN'}">Add Item</a>
+          </li>
+        
+        </ul>
+         <form class="d-flex" id="search" action="/home" method="get">
+          <input class="form-control me-2" type="search" placeholder="search" aria-label="Search" name="search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+				<!--<form class="d-flex" action="/home" method="get">
+					<input class="form-control me-2" type="text" placeholder="Search" name="search">
+					<button class="btn btn-primary" type="submit">Search</button>
+				</form>-->
+				<ul class="nav justify-content-end">
+			<!--	<ul class="nav-item">-->
+					<li class="nav-item">
+						<a class="nav-link" href="cart">
+							<i class="fa fa-shopping-cart"> </i> Cart (<span th:text="${quantity}"></span>)
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="wishlist">
+							<i class="fa fa-heart"></i> Wishlist (<span th:text="${wishlistQuantity}"></span>)
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a href="/login" th:unless="${user}">
+							<button class="btn btn-success" type="button">Log-in</button>
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a href="/logout" th:if="${user}">
+							<button class="btn btn-warning" type="button"><i class="fa fa-sign-out"
+									style="font-size:24px"></i>Log-out</button>
+						</a>
+					</li>
+					
+			
+			<div style="margin-left:20px">
+			
+			<a href="profile" th:if="${user}" style="text-decoration: none; font-size: 25px; text-decoration: solid;" class="circle-link"> 
+				<span th:text= "${user.name.charAt(0)}"></span>
+				
+			</a>
+			<div th:if="${user}">
+			<span style="color:white">[[${user.name}]]</span> 
+			</div>
+			 
+			
+			
+			</div>
+			</ul>
+			</div>
+		</div> 
+		
+		
+	</nav>
+	<!--<div style="box-shadow: 0 0 8px; margin: 10px; padding:5px;">
+		<marquee direction="left" behavior="scroll">
+			<img th:src="@{/Images/hp.webp}" width="120" height="80" />
+			<img th:src="@{/Images/hp.webp}" width="120" height="80" />
+			<img th:src="@{/Images/hp.webp}" width="120" height="80" />
+			<img th:src="@{/Images/hp.webp}" width="120" height="80" />
+			<img th:src="@{/Images/hp.webp}" width="120" height="80" />
+
+		</marquee>
+	</div>-->
+
+
+
+
+
+
+	<div class="container-fluid">
+
+		<div class="row">
+			
+			<div >
+			<div id="demo" class="carousel slide" data-bs-ride="carousel" style="display: 100%;">
+
+  <!-- Indicators/dots -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+  </div>
+
+  <!-- The slideshow/carousel -->
+  <div class="carousel-inner">
+    <div class="carousel-item active" >
+      <img src="/Images/Promotion/corosal/electronics.jpg" alt="Los Angeles" class="d-block" style="width:100%; height:300px">
+    </div>
+    <div class="carousel-item">
+      <img src="/Images/Promotion/corosal/fashion.jfif" alt="Chicago" class="d-block" style="width:100%; height:300px" >
+    </div>
+    <div class="carousel-item">
+      <img src="/Images/Promotion/corosal/kitchen.jfif" alt="New York" class="d-block" style="width:100%; height:300px">
+    </div>
+    <div class="carousel-item">
+      <img src="/Images/Promotion/corosal/home Appliences.jpg" alt="New York" class="d-block" style="width:100%; height:300px">
+    </div>
+  </div>
+
+  <!-- Left and right controls/icons -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+
+<!-- --------------------------   Item Card------------------------ -->
+<div class="row">
+	<div class="col" th:each="item: ${items}">
+	<a th:href="@{'item/'+${item.id}}" style="text-decoration: none;">   
+		<div class="card" style="width:150px;">
+			<img class="card-img-top" th:src="'data:image/jpeg;base64,' + ${item.imagePath}"
+								alt="Card image" style="width:100%">
+    
+    
+			
+<div class="card-body">
+<div>
+	<form method="post" action="addToWishlist?page=home"> 
+		<input type="hidden" name="item_id" th:value="${item.id}"/>					
+	
+		<button style="background-color: white; border: none; float:right;"> 
+			<i class="fa fa-heart-o" style="font-size:22px; right: 8px;" th:unless="${item.heart=='yes'}"></i>
+		</button>
+	</form>
+	<form method="post" action="removeFromWishlist?page=home">    
+		<input type="hidden" name="item_id" th:value="${item.id}"/>
+		<button style="background-color: white; border: none; float:right;">
+			<i class="fa fa-heart" style="font-size:22px;color:red; right: 8px;" th:if="${item.heart=='yes'}"></i>
+		</button>
+	</form>
+</div>
+	<h6 class="card-title" th:text="${item.name}"> </h6>
+	<p class="card-text" "${item.decription}"> </p>
+	   <del>₹<span th:text="${item.price}"> </span></del><b> <span th:text="${item.price-(item.price*(item.discount/100))}"></span> </b>
+								
+	<!--      Rating        -->
+	<div class="rectangular-box">
+	<span class="rating">4.3</span> 
+      <span class="star">&#9733;</span>
+    </div>
+    <br>
+								<!--      Add To Cart + or - button     -->
+								
+								<div style="display: flex; "  th:if="${item.total_quantity > 0}">
+									<form action="addToCart?page=home" method="post">
+									
+										<input type="hidden" name="item_id" th:value="${item.id}"/>
+										<button type="submit" class="btn btn-secondary add" > + </button> 
+									</form>
+									
+									<span style="margin: 0 auto;" th:text="${item.total_quantity}"></span>
+									
+									<form action="removeFromCart?page=home" method="post">
+									
+										<input type="hidden" name="item_id" th:value="${item.id}"/>
+										<button type="submit" class="btn btn-secondary sub" > - </button>
+									</form>
+									
+								</div>
+								
+								<!--      Add To Cart Button     -->
+								<div th:unless="${item.total_quantity > 0}">
+									<form action="/addToCart?page=home" method="post" >
+									
+										<input type="hidden" name="item_id" th:value="${item.id}"/>
+										
+										<button type="submit" onclick="checkUserLogin()" style="font-size:16px; background-color:lightblue;" ><i class="fa fa-shopping-cart"> </i>Add to cart 
+										</button>
+									<!--	<button type="submit" style="font-size:16px; background-color:lightblue;" ><i class="fa fa-shopping-cart"> </i>Add to cart 
+										</button>-->
+										
+									</form>
+								</div>
+							</div>
+							
+						</div>
+	</a>
+					</div>
+				</div>
+		<!-- Pagination Buttons    -->	
+		<div style="box-shadow: 0 0 8px; margin: 0 auto; width:500px; margin-top: 40px; display:flex">
+    <!-- Previous page link -->
+    <span th:if="${allItems.hasPrevious()}">
+        <a th:href="@{'home?page='+${allItems.number-1}}">Previous</a>
+    </span>
+
+    <div style="flex: 1; text-align:center;">
+        <!-- Page buttons -->
+        <span th:each="i:${#numbers.sequence(0,allItems.totalPages-1)}">
+            <a th:href="@{'home?page='+${i}}" style="text-decoration:none;">
+                <button th:text="${i+1}" th:class="${allItems.number==i}?'active1':'unactive'"></button>
+            </a>
+        </span>
+    </div>
+
+    <!-- Next page link -->
+    <span th:if="${allItems.hasNext()}">
+        <a th:href="@{'home?page='+${allItems.number+1}}">Next</a>
+    </span>
+</div>
+			</div>
+			
+	</div>
+</div>
+
+  <div id="loginAlert" style="position: fixed; top:-15%; left:35%; width:500px;transition:1s " class="alert alert-danger p-1 text-center">
+    <strong>Please Login First</strong> 
+    <button class="btn btn-danger" onclick="loginAlertClose()">OK</button>
+  </div>
+  
+<script th:inline="javascript">
+
+  console.log(/*[[${user}]]*/);
+    // Assuming you are using Thymeleaf to access the model attribute
+    var alertValue = /*[[${alert}]]*/ 'default_value';  // Use a default value if needed
+
+    if (alertValue === "true") {
+        setTimeout(function() {
+            /* alert(" <p style='color:red;'>Please Login First </p>"); */
+            document.getElementById("loginAlert").style.top="10%"
+        }, 100);
+    }
+    
+  function loginAlertClose(){
+	  document.getElementById("loginAlert").style.top="-15%"
+  }
+    
+    
+</script>
+
+
+
+</body>
+
+</html>

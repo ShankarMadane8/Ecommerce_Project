@@ -1,0 +1,3 @@
+"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql" -u root -phummuimmu -e "CREATE DATABASE kanchan;"
+
+"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql" -u root -phummuimmu kanchan < "C:\profound All\SpringBoot project\Ecommerce\Ecommerce\src\main\resources\static\Database\ecommerce.db"

@@ -1,0 +1,135 @@
+.br{
+	border-bottom: 3px solid rgb(0, 0, 0);
+}
+  .symbol {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .symbol:hover {
+            color: #3498db;
+        }
+        
+ .active1{
+	background-color:blue;
+	color:white;
+}
+
+.add, .sub{
+	height: 40px; 
+	width:40px; 
+	padding:0px; 
+	
+	color:black;
+	background-color:transparent;
+	border:none;
+	
+}
+body, html{
+	margin:0;
+	height:100%;
+}
+
+ .rectangular-box {
+      width: 50px;
+      height: 25px;
+      background-color:green; /* Yellow background color */
+      display: flex;
+      justify-content:end;
+     
+      align-items:flex-end;
+      font-size: 24px;
+      font-weight: bold;
+      border-radius: 8px;
+    }
+
+    .star {
+	      margin-right: 2px;
+	       color:white; /* Blue color for the star */
+      font-size: 1rem;
+    }
+    
+    .rating{
+	
+		font-size:15px;
+		 margin-right: 7px;
+		 color:white;
+}
+.fixed-bottom
+{
+	margin-left: 45%;
+	
+}
+
+/* navbar  */
+#navbar{
+    background-color:rgb(67, 0, 86 ); 
+}
+#logo{
+    margin-left: 8px;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+#logo span{
+    color: #ffc800;
+}
+#logo #span1{
+    font-size: 30px;
+}
+.navbar-nav{
+    margin-left:20px ;
+}
+.nav-item{
+    margin-left: 3px;
+}
+.nav-item .nav-link{
+    color: white;
+    margin-left: 2px;
+    text-shadow: 0px 0px 1px black;
+    transition: 0.5s ease;
+}
+
+.nav-item .nav-link:hover{
+    color: #ffc800;
+}
+.dropdown-menu li a{
+    color:white;
+    transition: 0.5s ease;
+}
+.dropdown-menu .li a:hover{
+    background-color:rgb(67 0 86);
+    color: #ffc800;
+}
+#search input{
+    border-radius: 50px;
+    border: none;
+}
+#search button{
+    border-radius: 50px;
+    color: white ;
+    border: 1px solid #ffc800;
+    background-color: #ffc800;
+}
+/* navbar  */
+
+.rating-container .fa-star {
+    margin-right: 2px; /* Adjust as needed for spacing */
+    color: white; /* Adjust star color */
+    font-size: 1rem; /* Adjust star size */
+}
+
+
+ .circle-link {
+            display: inline-block;
+            width: 40px; /* Adjust the size of the circle */
+            height: 40px; /* Adjust the size of the circle */
+            border-radius: 50%; /* Make it a circle */
+            background-color: hotpink; /* Circle background color */
+            text-align: center;
+            line-height: 40px; /* Center the text vertically */
+            text-decoration: none; /* Remove underline from the link */
+            color: white; /* Text color */
+            font-size: 16px; /* Adjust the font size */
+        }

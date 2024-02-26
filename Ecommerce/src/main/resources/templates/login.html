@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Login</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+	<style>
+		.lock-icon {
+			font-size: 3rem;
+		}
+
+		h2 {
+			font-size: 1.5rem;
+			margin-top: 10px;
+			text-transform: uppercase;
+		}
+
+		p {
+			font-size: 15px;
+		}
+
+		.links {
+			position: relative;
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		body {
+			background-image: url("/Images/log.avif");
+			background-color: #cccccc;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+
+		*,
+		*:before,
+		*:after {
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
+
+		.log {
+			height: 600px;
+			width: 400px;
+			background-color: rgba(255, 255, 255, 0.13);
+			position: absolute;
+			transform: translate(-50%, -50%);
+			top: 50%;
+			left: 50%;
+			border-radius: 10px;
+			backdrop-filter: blur(10px);
+			border: 2px solid rgba(255, 255, 255, 0.1);
+			box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+			padding: 50px 35px;
+		}
+
+		form * {
+			font-family: 'Poppins', sans-serif;
+			color: black;
+			letter-spacing: 0.5px;
+			outline: none;
+			border: none;
+		}
+
+		form h3 {
+			font-size: 32px;
+			font-weight: 500;
+			line-height: 42px;
+			text-align: center;
+		}
+
+		label {
+			display: block;
+			margin-top: 30px;
+			font-size: 16px;
+			font-weight: 500;
+		}
+
+		input {
+			display: block;
+			height: 50px;
+			width: 100%;
+			background-color: rgba(255, 255, 255, 0.07);
+			border-radius: 3px;
+			padding: 0 10px;
+			margin-top: 8px;
+			font-size: 14px;
+			font-weight: 300;
+		}
+
+		button {
+			margin-top: 10px;
+			width: 100%;
+			background-color: #cccccc;
+			color: #080710;
+			padding: 15px 0;
+			font-size: 18px;
+			font-weight: 600;
+			border-radius: 10px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div style="width: 400px; background-color:aqua; margin:0 auto;  ">
+		<div class="container mt-3">
+
+
+			<form action="loginUser" method="post" class="log">
+				<b>
+					<h3>Login Here</h3>
+				</b>
+				<p th:text="${error}" style="color: red;"> </p>
+				<p th:text="${emailError}" style="color: red; "> </p>
+				<div class="mb-3 mt-3">
+
+					<label for="email">Email:</label>
+					<input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" value="kanchanborse65@gmail.com">
+				</div>
+
+				<div class="mb-3">
+					<label for="password">Password:</label>
+					<input type="password" class="form-control" id="password" placeholder="Enter password"
+						name="password" value="kanchan1">
+				</div>
+
+				<div class="links">
+
+					<a style="color: red; cursor:pointer;" data-bs-toggle="modal" data-bs-target="#myModal">
+						Forgot password
+					</a>
+					<a href="/signup">New User?</a>
+				</div>
+
+
+				<div class="form-check mb-3">
+					<label class="form-check-label">
+						<input class="form-check-input" type="checkbox" name="remember"> Remember me
+					</label>
+				</div>
+
+
+				<button type="submit" class="inputBox">Log In</button>
+
+
+			</form>
+
+
+			<div class="modal" id="myModal">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+
+						<!-- Modal Header -->
+						
+						
+
+							<center class="lock-icon">
+							<i class="fa fa-lock"> </i>
+							<h4> Forgot Password? </h4>
+							</center>
+							
+
+							<button type="button" class="btn-close" data-bs-dismiss="modal"> </button> 
+						
+
+						<!-- Modal body -->
+						<div class="modal-body">
+							<form action="sendotp" method="post">
+								<div class="mb-3 mt-3">
+
+
+									<label for="email">Email Address:</label>
+									<input type="email" class="form-control" id="email" placeholder="Enter email"
+										name="email">
+									<button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Send
+										OTP</button>
+								</div>
+							</form>
+						</div>
+
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

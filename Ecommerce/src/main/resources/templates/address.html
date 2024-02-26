@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Shofify</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+	<link rel="stylesheet" th:href="@{/CSS/main.css}">
+	<!--<style>
+		input,
+		label {
+			margin: 5px 5px;
+		}
+
+		
+
+		.form-control {
+			float: left;
+		}
+
+		#name {
+			width: 50%;
+		}
+
+		#mobile {
+			width: 30%;
+		}
+
+		#district {
+			width: 40%;
+		}
+
+		#state {
+			width: 40%;
+		}
+
+		#pincode {
+			width: 35%;
+		}
+
+		#address {
+			width: 100%;
+		}
+
+		#country {
+			width: 45%;
+		}
+
+		#locality {
+			width: 50%;
+		}
+
+		#landmark {
+			width: 50%;
+		}
+
+		
+	</style>-->
+	<style>
+		#hiddenContent {
+			display: none;
+			margin-top: 50px;
+		}
+
+		#hiddenContent1 {
+			display: none;
+
+		}
+
+		#hiddenContent2 {
+			display: none;
+
+		}
+
+		#hiddenContent3 {
+			display: none;
+
+		}
+
+		#hiddenContent4 {
+			display: none;
+		}
+	</style>
+	<script>
+		function maximizeContent() {
+			var contentDiv = document.getElementById('hiddenContent');
+			contentDiv.style.display = 'block';
+		}
+		function maximizeContent1() {
+			var contentDiv = document.getElementById('hiddenContent1');
+			contentDiv.style.display = 'block';
+		}
+
+		function maximizeContent2() {
+			var contentDiv = document.getElementById('hiddenContent2');
+			contentDiv.style.display = 'block';
+		}
+		//payment
+		function maximizeContent3() {
+			var contentDiv = document.getElementById('hiddenContent3');
+			contentDiv.style.display = 'block';
+		}
+		//credit card
+		function maximizeContent4() {
+			var contentDiv = document.getElementById('hiddenContent4');
+			contentDiv.style.display = 'block';
+		}
+
+		//-------------radio button--------------
+		let addressId;
+		let priviousAddressId;
+		function printAddressId(radioButton) {
+			console.log('Selected Address ID:', radioButton.value);
+			priviousAddressId = addressId;
+			addressId = radioButton.value;
+
+			// Show or hide the "DELIVER HERE" button based on the active status
+			toggleDeliverButtonVisibility();
+		}
+
+		function toggleDeliverButtonVisibility() {
+			// Get the "DELIVER HERE" button element by its ID
+			let deliverButton = document.getElementById(addressId);
+			let deliverButton2 = document.getElementById(priviousAddressId);
+			// Check if the button element exists
+			if (deliverButton) {
+				// Toggle the button's visibility based on the active status of the radio button
+				deliverButton.style.display = deliverButton.style.display === 'none' ? 'inline-block' : 'none';
+			}
+			deliverButton2.style.display = 'none';
+
+		}
+
+		//-------------Payment Mode--------------
+		let paymentMode;
+		//let priviousAddressId;
+		function printPaymentMode(radioButton) {
+			console.log('Selected Payment Mode:', radioButton.value);
+			// priviousAddressId= addressId;
+			paymentMode = radioButton.value;
+		}
+		
+		// -------------------------Card Number Handler------------------------
+		let cardNo;
+		function handlerCardNo()
+		{
+			cardNo=document.getElementById("cardNumber").value;
+			if(cardNo.length!=16)
+			{
+				document.getElementById("cardNumberError").innerHTML="Invalid Card Number";
+				document.getElementById("cardNumberError").style.color="red";
+				console.log("error");
+			}
+		else{
+			 document.getElementById("cardNumberError").innerHTML="Valid";
+			 document.getElementById("cardNumberError").style.color="green";
+			}
+			console.log("CardNumber "+cardNo);
+		}
+		
+		// -------------------------Card Holder Name Handler------------------------
+		let cardHolderName;
+		function handlerCardHolderName()
+		{
+			cardHolderName=document.getElementById("cardHolderName").value;
+			console.log("cardHolderName "+cardHolderName);
+		}
+		
+		// -------------------------Expiry Date Handler------------------------
+		let expiryDate;
+		function handlerExpiryDate()
+		{
+			expiryDate=document.getElementById("expiryDate").value;
+			console.log("expiryDate ",expiryDate);
+		}
+		
+		
+		// -------------------------CVV Handler------------------------
+		let cvv;
+		function handlerCVV()
+		{
+			cvv=document.getElementById("cvv").value;
+			console.log("cvv ",cvv);
+		}
+		
+
+		function submitPaymentProcessingDetails() {
+			// Replace these values with your actual API endpoint and request data
+			const apiUrl = 'http://localhost:8080/paymentProcessingDetails'
+			const requestData = {
+				addressId: addressId,
+				paymentMode: paymentMode,
+				cardNumber: cardNo,
+				expiryDate: expiryDate,
+				cvv: cvv,
+				cardHolderName:cardHolderName
+				
+				
+			};
+			console.log(requestData);
+			// Make a POST request using the fetch function
+			const xhr = new XMLHttpRequest();
+
+			// Configure it to make a POST request to the specified API endpoint
+			xhr.open('POST', apiUrl, true);
+
+			// Set the content type to indicate that you are sending XML data
+			xhr.setRequestHeader('Content-Type', 'application/json');
+
+			// Set up a callback function to handle the response
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === XMLHttpRequest.DONE) {
+					if (xhr.status === 200) {
+						// The request was successful, and you can handle the response here
+						//console.log('Response:', xhr.responseText);
+					} else {
+						// Handle errors
+						console.error('Error:', xhr.status, xhr.statusText);
+					}
+				}
+			};
+			// Convert the object to a JSON string
+			const jsonrequestData = JSON.stringify(requestData);
+			// Send the request with the XML data
+			xhr.send(jsonrequestData);
+		}		
+		
+		
+	
+	</script>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg" id="navbar">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="\home" id="logo">
+				<span id="span1">E</span>lectronic<span>Shop</span>
+			</a>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<div class="row" style="margin-left: 30px;">
+			<div class="col-8">
+				<div class="row" style="margin-top: 15px; box-shadow: 0 0 8px; background-color:white">
+					<div style="display: flex; align-items: center;justify-content: space-between;">
+						<h2>1 Login</h2>
+						<button type="submit" onclick="maximizeContent()" class="btn btn-outline-secondary"
+							style="color: blue; margin-right: 2px;">CHANGE</button>
+						<div id="hiddenContent">
+							<!-- Your content goes here -->
+							<p>This is the content.</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="row"
+					style="margin-top: 8px; box-shadow: 0 0 8px; background-color:white;margin-top: 15px; ">
+					<div style="background-color: blue; color: white; font-size: 30px;">
+						<p> Delivery Address</p>
+					</div>
+				</div>
+				<div class="row" th:each="address:${addresses}"
+					style="margin-top: 8px; box-shadow: 0 0 8px; background-color:white;margin-top: 15px; ">
+					<div class="col-1">
+						<input type="radio" id="html" name="fav_language" th:value="${address.id}"
+							onclick="printAddressId(this)">
+
+					</div>
+					<div class="col-11">
+						<div style="display: flex;">
+							<b> <label th:text="${address.name}"> </label> &nbsp &nbsp
+								<label th:text="${address.addressType}" class="text-muted"> </label> &nbsp &nbsp
+								<label th:text="${address.mobile}"> </label></b>
+						</div>
+						<p th:text="${address.Address}"> </p>
+						<p th:text="${address.pincode}"> </p>
+						<button type="submit" class="btn btn-warning" th:id="${address.id}"
+							style="display: none;">DELIVERE HERE </button>
+					</div>
+
+				</div>
+				<div class="row"
+					style="margin-top: 8px; box-shadow: 0 0 8px; background-color:white;margin-top: 15px; ">
+					<div style="color: blue;display: flex; align-items: center; ">
+						<button class="btn bg-transparent" style="color: blue; font-size: 25px;"
+							onclick="maximizeContent1()"> +</button>
+						<p style="margin-top: 5px;"> Add a New Address</p>
+					</div>
+					<div id="hiddenContent1">
+						<!-- Your content goes here -->
+						<form action="/address/addAddress" method="post">
+							<div class="form-group" style="width: 600px; margin: 0 auto;">
+								<div style="display: flex; margin-top: 20px;">
+									<input type="text" class="form-control" id="name" placeholder="Name" name="Name"
+										style="margin-right: 30px;">
+
+									<input type="number" class="form-control" id="mobile" name="mobile"
+										placeholder="10-digit mobile number ">
+								</div>
+								<div style="display: flex; margin-top: 20px;">
+									<input type="number" class="form-control" id="pincode" placeholder="Pincode"
+										name="pincode">
+
+									<input type="text" class="form-control" id="locality" placeholder="Locality"
+										name="locality">
+								</div>
+								<div style="display: flex; margin-top: 20px;">
+									<input type="text" class="form-control" id="address" placeholder="Address"
+										name="Address">
+								</div>
+								<div style="display: flex; margin-top: 20px;">
+									<input type="text" class="form-control" id="district" placeholder="District"
+										name="district">
+
+									<input type="text" class="form-control" id="state" placeholder="State" name="state">
+								</div>
+								<div style="display: flex; margin-top: 20px;">
+									<input type="text" class="form-control" id="landmark" placeholder="Landmark"
+										name="landmark">
+								</div>
+								<div style="margin-top: 20px;">
+									<label>Address Type</label><br>
+									<input type="radio" id="home" name="addressType" value="home">
+									  <label for="home">Home (All day delivery)</label>
+									  <input type="radio" id="work" name="addressType" value="work">
+									  <label for="work">Work (Delivery between 10 AM - 5 PM)</label><br>
+								</div>
+							</div>
+							<br>
+							<div style="text-align: center;">
+								<button type="submit" class="btn btn-warning"> SAVE AND DELIVERE HERE</button><br>
+							</div>
+						</form>
+					</div>
+
+				</div>
+				<!-- ----------------------Order Summary----------------- -->
+				<div class="row" style="margin-top: 15px; box-shadow: 0 0 8px; background-color:white">
+					<a onclick="maximizeContent2()">
+						<h4 style="font-size: 20px;">3. ORDER SUMMARY</h4>
+					</a>
+					<div style="display: flex; align-items: center;justify-content: space-between; font-size: 12px;"
+						class="text-muted">
+
+						<div id="hiddenContent2">
+							<!-- Your content goes here -->
+
+							<div class="row" th:each="item: ${items}"
+								style="margin: 5px; margin-top: 10px; box-shadow:0 0 9px; padding: 10px; background-color: white; width:120%">
+
+								<div class="col-4">
+									<a th:href="@{'item/'+${item.id}}" style="text-decoration: none;">
+										<img th:src="'data:image/jpeg;base64,' + ${item.imagePath}" alt="Card image"
+											width="150px" height="150px">
+
+										<div style="display: flex; width:150px " th:if="${item.total_quantity > 0}">
+											<form action="addToCart?page=cart" method="post">
+
+												<input type="hidden" name="item_id" th:value="${item.id}" />
+												<button type="submit" class="btn btn-outline-secondary"
+													style="border-radius: 50%;"> +
+												</button>
+											</form>
+
+											<span class="btn btn-outline-secondary" style="margin: 0 auto;"
+												th:text="${item.total_quantity}"></span>
+
+											<form action="removeFromCart?page=cart" method="post">
+
+												<input type="hidden" name="item_id" th:value="${item.id}" />
+												<button type="submit" class="btn btn-outline-secondary"
+													style="border-radius: 50%; text-align:center;"> <span>-</span>
+												</button>
+											</form>
+
+										</div>
+									</a>
+								</div>
+								<div class="col-8" style="font-size: 16px;">
+									<p th:text="${item.name}" style="font-weight:bold;"> </p>
+									<div class="rectangular-box">
+										<span class="rating">4.3</span>
+										<span class="star">&#9733;</span>
+									</div>
+									<p th:text="${item.description}"> </p>
+									<p><del>₹<span th:text="${item.price}"></span></del>&nbsp<b>₹<span
+												th:text="${item.price-(item.price*(item.discount/100))}"> </span>
+											&nbsp <span th:text="${item.discount}" style="color: green;"></span>
+											<span style="color: green;"> % off </span>
+										</b></p>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ---------------------Payment-------------------- -->
+				<div class="row" style="margin-top: 15px; box-shadow: 0 0 8px; background-color:white">
+					<a onclick="maximizeContent3()">
+						<h4 style="font-size: 20px;">3. PAYMENT</h4>
+					</a>
+
+					<div style="display: flex; align-items: center;justify-content: space-between; font-size: 12px;"
+						class="text-muted">
+
+						<div id="hiddenContent3">
+							<div style="color: blue;display: flex; ">
+								<button class="btn bg-transparent" style="color: blue; font-size: 14px;"
+									onclick="maximizeContent5()">
+									<input type="radio" id="html" name="paymentMode" value="phonePay"
+										onclick="printPaymentMode(this)">
+									<label for="html">Phone Pay</label><br>
+								</button>
+
+								<button class="btn bg-transparent" style="color: blue; font-size: 14px;"
+									onclick="maximizeContent6()">
+									<input type="radio" id="html" name="paymentMode" value="UPI"
+										onclick="printPaymentMode(this)">
+									<label for="html">UPI</label><br>
+								</button>
+								<button class="btn bg-transparent" style="color: blue; font-size: 14px;"
+									onclick="maximizeContent4()">
+									<input type="radio" id="card" name="paymentMode" value="Credit/Debit/ATM Card"
+										onclick="printPaymentMode(this)">
+									<label for="html">Credit/Debit/ATM Card</label><br>
+								</button>
+							</div>
+						<!-- Credit/ debit hidden form -->
+							<div id="hiddenContent4">
+								<!-- Your content goes here -->
+								<form>
+									<div class="form-group" style="width: 600px; margin: 0 auto;">
+									<div style="display: flex; margin-top: 20px;">
+											<input type="text" class="form-control" id="cardHolderName"
+												placeholder="Enter Card Holder Name" name="cardHolderName" onChange="handlerCardHolderName()"
+												style="margin-right: 30px;">
+										</div>
+										
+										<div style="display: flex; margin-top: 20px;">
+											<input type="text" class="form-control" id="cardNumber"
+												placeholder="Enter Card Number" name="cardNumber" oninput="handlerCardNo()"
+												style="margin-right: 30px;">
+												
+										</div>
+										<p id="cardNumberError" style="color: red;"> </p >
+										<div style="margin-top: 20px;">
+										<input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" pattern="^\d{2}/\d{2}$" title="Enter a valid expiry date (MM/YY)" maxlength="5" required 
+														onChange="handlerExpiryDate()">
+&nbsp &nbsp
+						
+											<input type="text" class="form-control" id="cvv" placeholder="cvv"
+												name="cvv" onChange="handlerCVV()">
+										
+										</div>
+									</div>
+								</form>
+								<button type="button" onclick="submitPaymentProcessingDetails()"
+									class="btn btn-warning">Submit </button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-4" style="margin-top: 15px; box-shadow: 0 0 8px; background-color:white">
+				<div style="box-shadow: 0 0 9px; background-color:white; ">
+					<h5 style="margin-top: 10px;"> PRICE DETAILS: </h5>
+					<hr>
+					<p style="display: flex; margin:10px;">
+						<span style="flex: 1;">Price( <span th:text="${quantity}"> </span> items): </span>
+						₹<span th:text="${total_Price}"> </span>
+					</p>
+
+					<p style="display: flex; margin:10px;">
+						<span style="flex: 1;">Discount: </span>
+						₹<span th:text="${total_Discount}"></span>
+					</p>
+
+					<p style="display: flex; margin:10px;">
+						<span style="flex: 1;">Delivery Charges: </span>
+						₹<span style="float:right;">2000</span>
+					</p>
+					<hr>
+					<p style="display: flex; margin:10px;">
+						<span style="flex: 1;">Total Amount: </span>
+						₹<span style="float:right;" th:text="${total_Price-total_Discount}"></span>
+					</p>
+
+					<hr>
+					<p style="color: green; text-align: center;"> You will save ₹ <span th:text="${total_Discount}">
+						</span> on this order</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+
+</html>
