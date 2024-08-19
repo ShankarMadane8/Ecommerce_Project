@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: Ecom
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ecommerce1
+    username: root
+    password: root
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 8182
+  servlet:
+    session:
+      timeout: 1800
+
+swagger:
+  server-url: http://localhost:8182
