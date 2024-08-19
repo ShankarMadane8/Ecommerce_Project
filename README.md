@@ -40,8 +40,6 @@ This e-commerce platform is a robust backend solution designed to manage product
   - `EcommerceApplication.java`: Main application class.
 
 ## Installation and Setup
-
-### Backend Setup
-1. **Navigate to the Backend Directory:**
+1. **Clone the Repository:**
    ```bash
-   cd backend
+   git clone https://github.com/ShankarMadane8/Ecommerce_Project.git
